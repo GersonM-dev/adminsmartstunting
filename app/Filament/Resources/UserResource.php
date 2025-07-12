@@ -31,6 +31,11 @@ class UserResource extends Resource
                     ->required()
                     ->maxLength(255),
 
+                Forms\Components\TextInput::make('phone_number')
+                    ->tel()
+                    ->required()
+                    ->maxLength(255),
+
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->confirmed()
