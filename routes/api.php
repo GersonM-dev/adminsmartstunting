@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\AnakController;
 use App\Http\Controllers\Api\BeritaController;
+use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\RiwayatController;
 
 Route::get('/user', function (Request $request) {
@@ -20,3 +21,8 @@ Route::middleware('auth:sanctum')->apiResource('anak', AnakController::class);
 Route::middleware('auth:sanctum')->apiResource('riwayat', RiwayatController::class);
 
 Route::middleware('auth:sanctum')->apiResource('berita', BeritaController::class);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show']);
+    Route::put('/profile', [ProfileController::class, 'update']);
+});
