@@ -17,7 +17,8 @@ class RiwayatResource extends Resource
 {
     protected static ?string $model = Riwayat::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-clock';
+    protected static ?string $pluralLabel = 'Riwayat Prediksi';
 
     public static function form(Form $form): Form
     {
@@ -25,7 +26,7 @@ class RiwayatResource extends Resource
             ->schema([
                 Forms\Components\Select::make('anak_id')
                     ->label('Nama Anak')
-                    ->relationship('anak', 'nama') // pastikan 'nama' sesuai kolom nama anak
+                    ->relationship('anak', 'nama')
                     ->searchable()
                     ->required(),
 
@@ -33,12 +34,15 @@ class RiwayatResource extends Resource
                     ->required(),
                 Forms\Components\Group::make([
                     Forms\Components\TextInput::make('status_stunting')
+                        ->label('Status BB/U')
                         ->required()
                         ->maxLength(255),
                     Forms\Components\TextInput::make('status_underweight')
+                        ->label('Status TB/U')
                         ->required()
                         ->maxLength(255),
                     Forms\Components\TextInput::make('status_wasting')
+                        ->label('Status BB/TB')
                         ->required()
                         ->maxLength(255),
                 ])->columns(3)->columnSpanFull(),

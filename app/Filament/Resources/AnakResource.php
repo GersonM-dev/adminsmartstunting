@@ -17,7 +17,9 @@ class AnakResource extends Resource
 {
     protected static ?string $model = Anak::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-users';
+
+    protected static ?string $pluralLabel = 'Data Anak';
 
     public static function form(Form $form): Form
     {
@@ -147,9 +149,9 @@ class AnakResource extends Resource
     {
         return [
             'index' => Pages\ListAnaks::route('/'),
-            'create' => Pages\CreateAnak::route('/create'),
-            'view' => Pages\ViewAnak::route('/{record}'),
-            'edit' => Pages\EditAnak::route('/{record}/edit'),
+            // 'create' => Pages\CreateAnak::route('/create'),
+            // 'view' => Pages\ViewAnak::route('/{record}'),
+            // 'edit' => Pages\EditAnak::route('/{record}/edit'),
         ];
     }
 }
