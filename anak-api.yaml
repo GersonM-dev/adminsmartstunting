@@ -1,0 +1,168 @@
+openapi: 3.0.3
+info:
+  title: Anak API
+  description: API for managing Anak records and syncing to webhook with Riwayat logging
+  version: 1.0.0
+
+servers:
+  - url: https://your-domain.com/api
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Anak:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        nama:
+          type: string
+        jenis_kelamin:
+          type: string
+          enum: [Laki-laki, Perempuan]
+        umur_bulan:
+          type: integer
+        berat:
+          type: number
+        tinggi:
+          type: number
+        lingkar_kepala:
+          type: number
+        lingkar_lengan:
+          type: number
+        kecamatan:
+          type: string
+        jumlah_vit_a:
+          type: integer
+        pendidikan_ayah:
+          type: string
+        pendidikan_ibu:
+          type: string
+        status_gizi:
+          type: string
+        tanggal_lahir:
+          type: string
+          format: date
+    Riwayat:
+      type: object
+      properties:
+        anak_id:
+          type: integer
+        timestamp:
+          type: string
+          format: date-time
+        status_stunting:
+          type: string
+        status_underweight:
+          type: string
+        status_wasting:
+          type: string
+        rekomendasi:
+          type: string
+
+security:
+  - BearerAuth: []
+
+paths:
+  /anak:
+    get:
+      tags: [Anak]
+      summary: Get all Anak records
+      security: [ { BearerAuth: [] } ]
+      responses:
+        200:
+          description: List of anak
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Anak'
+    post:
+      tags: [Anak]
+      summary: Create new Anak
+      security: [ { BearerAuth: [] } ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/Anak'
+      responses:
+        201:
+          description: Anak created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Anak'
+
+  /anak/{id}:
+    get:
+      tags: [Anak]
+      summary: Get Anak by ID
+      security: [ { BearerAuth: [] } ]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Anak detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Anak'
+    put:
+      tags: [Anak]
+      summary: Update Anak by ID
+      security: [ { BearerAuth: [] } ]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/Anak'
+      responses:
+        200:
+          description: Anak updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Anak'
+    delete:
+      tags: [Anak]
+      summary: Delete Anak by ID
+      security: [ { BearerAuth: [] } ]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Anak deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
