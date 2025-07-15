@@ -18,7 +18,7 @@ class Berita extends Model
     public function getImageUrlAttribute()
     {
         if ($this->image) {
-            return url('storage/berita/' . $this->image);
+            return url('storage/' . $this->image);
         }
         return null;
     }
