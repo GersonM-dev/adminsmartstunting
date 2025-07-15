@@ -23,7 +23,10 @@ class BeritaResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('title')->required(),
+                Forms\Components\TextInput::make('url'),
+                Forms\Components\FileUpload::make('image')->columnSpanFull(),
+                Forms\Components\RichEditor::make('content')->required()->columnSpanFull(),
             ]);
     }
 
@@ -31,7 +34,11 @@ class BeritaResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('title')->searchable(),
+                Tables\Columns\TextColumn::make('url')->toggleable(),
+                Tables\Columns\ImageColumn::make('image')->toggleable(),
+                Tables\Columns\TextColumn::make('content')->limit(50)->toggleable(),
+                Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable()->toggleable(),
             ])
             ->filters([
                 //
@@ -58,9 +65,9 @@ class BeritaResource extends Resource
     {
         return [
             'index' => Pages\ListBeritas::route('/'),
-            'create' => Pages\CreateBerita::route('/create'),
-            'view' => Pages\ViewBerita::route('/{record}'),
-            'edit' => Pages\EditBerita::route('/{record}/edit'),
+            // 'create' => Pages\CreateBerita::route('/create'),
+            // 'view' => Pages\ViewBerita::route('/{record}'),
+            // 'edit' => Pages\EditBerita::route('/{record}/edit'),
         ];
     }
 }
