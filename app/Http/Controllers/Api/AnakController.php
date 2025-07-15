@@ -10,10 +10,18 @@ use Illuminate\Support\Facades\Http;
 
 class AnakController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Anak::with('user', 'riwayats')->get();
+        $user = $request->user(); // or use auth()->user();
+
+        // Only show "anak" data for the authenticated user
+        $anaks = Anak::with('user', 'riwayats')
+            ->where('user_id', $user->id)
+            ->get();
+
+        return response()->json($anaks);
     }
+
 
     public function store(Request $request)
     {
